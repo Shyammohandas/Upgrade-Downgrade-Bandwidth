@@ -5,22 +5,18 @@
     <x:Property Name="in_TransactNo" Type="InArgument(x:Int32)" />
     <x:Property Name="in_statusCode" Type="InArgument(x:Int32)" />
     <x:Property Name="in_orderNumber" Type="InArgument(x:String)" />
-    <x:Property Name="in_recComplete" Type="InArgument(x:String)" />
     <x:Property Name="in_recCannotModify" Type="InArgument(x:Object)" />
   </x:Members>
   <this:Update_Order_Sheet_Main_WF.in_orderNumber>
     <InArgument x:TypeArguments="x:String" />
   </this:Update_Order_Sheet_Main_WF.in_orderNumber>
-  <this:Update_Order_Sheet_Main_WF.in_recComplete>
-    <InArgument x:TypeArguments="x:String" />
-  </this:Update_Order_Sheet_Main_WF.in_recComplete>
   <this:Update_Order_Sheet_Main_WF.in_recCannotModify>
     <InArgument x:TypeArguments="x:Object" />
   </this:Update_Order_Sheet_Main_WF.in_recCannotModify>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>724,935</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>605,1057</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Update Order Sheet Main WF_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="23">
@@ -74,7 +70,7 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Description : This sequence will update the order sheet with the valid Order Status/Number, Doc Number, Package Name." DisplayName="Update Order Sheet Main WF" sap:VirtualizedContainerService.HintSize="615,870" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Description : This sequence will update the order sheet with the valid Order Status/Number, Doc Number, Package Name." DisplayName="Update Order Sheet Main WF" sap:VirtualizedContainerService.HintSize="615,892" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="orderData" />
     </Sequence.Variables>
@@ -84,13 +80,13 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="573,736" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[in_orderDetailsPath]">
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="573,758" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[in_orderDetailsPath]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="539,627" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="539,649" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -103,27 +99,19 @@
                 </InArgument>
               </ui:ExcelReadRange.Range>
             </ui:ExcelReadRange>
-            <Switch x:TypeArguments="x:Int32" DisplayName="Switch - depending on the status" Expression="[in_statusCode]" sap:VirtualizedContainerService.HintSize="497,309" sap2010:WorkflowViewState.IdRef="Switch`1_1">
-              <Sequence x:Key="1" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Switch x:TypeArguments="x:Int32" DisplayName="Switch - depending on the status" Expression="[in_statusCode]" sap:VirtualizedContainerService.HintSize="497,331" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+              <Sequence x:Key="1" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Assign DisplayName="Assign to Record Status" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                <Assign DisplayName="Assign to Modify Record Status" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:Object">[orderData.Rows(in_TransactNo-1)("Modify Order Status")]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:Object">[in_recComplete]</InArgument>
-                  </Assign.Value>
-                </Assign>
-                <Assign DisplayName="Assign to Order Number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="x:Object">[orderData.Rows(in_TransactNo-1)("Order Number")]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="x:Object">[in_orderNumber]</InArgument>
+                    <InArgument x:TypeArguments="x:Object">["Modified"]</InArgument>
                   </Assign.Value>
                 </Assign>
               </Sequence>
@@ -149,6 +137,14 @@
                 </Assign.To>
                 <Assign.Value>
                   <InArgument x:TypeArguments="x:Object">["There can be only one modify order opened for this service"]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="5" DisplayName="Assign to Order Number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Object">[orderData.Rows(in_TransactNo-1)("Order Number")]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Object">[in_orderNumber]</InArgument>
                 </Assign.Value>
               </Assign>
             </Switch>
